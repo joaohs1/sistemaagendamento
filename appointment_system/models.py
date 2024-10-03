@@ -1,4 +1,5 @@
 from django.db import models
+import datetime  # Importar datetime para usar time
 
 class Service(models.Model):
     name = models.CharField(max_length=100)
@@ -10,10 +11,11 @@ class Service(models.Model):
 
 class Appointment(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
-    date = models.DateTimeField()
+    date = models.DateField()
+    time = models.TimeField(default='12:00')  # Deixe como uma string de formato "HH:MM"
     client_name = models.CharField(max_length=100)
     client_email = models.EmailField()
 
     def __str__(self):
-        return f'Appointment for {self.client_name} on {self.date}'
+        return f'Appointment for {self.client_name} on {self.date} at {self.time}'
 

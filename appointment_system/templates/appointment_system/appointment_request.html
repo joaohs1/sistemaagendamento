@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Serviço: {{ service.name }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'service_list' %}" class="white-link"><b>Serviços</b></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>Agendar Serviço: {{ service.name }}</h1>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <label for="name">Seu nome:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Seu email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="date">Data do agendamento:</label>
+        <input type="date" id="date" name="date" required><br><br>
+
+        <!-- Adicionar a seleção de horários disponíveis -->
+        <label for="time">Horário do agendamento:</label>
+        <select id="time" name="time" required>
+            {% for time in available_times %}
+                <option value="{{ time }}">{{ time }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <button type="submit">Agendar</button>
+    </form>
+
+    <footer>
+        <p>&copy; 2024 Sistema de Agendamento</p>
+    </footer>
+</body>
+</html>
