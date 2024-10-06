@@ -20,14 +20,20 @@
     
     <form method="POST">
         {% csrf_token %}
+
         <label for="name">Seu nome:</label>
         <input type="text" id="name" name="name" required><br><br>
 
         <label for="email">Seu email:</label>
         <input type="email" id="email" name="email" required><br><br>
 
+        <!-- Listar dias disponíveis -->
         <label for="date">Data do agendamento:</label>
-        <input type="date" id="date" name="date" required><br><br>
+        <select id="date" name="date" required>
+            {% for day in available_days %}
+                <option value="{{ day }}">{{ day }}</option>
+            {% endfor %}
+        </select><br><br>
 
         <!-- Adicionar a seleção de horários disponíveis -->
         <label for="time">Horário do agendamento:</label>
