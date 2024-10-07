@@ -6,6 +6,7 @@
     <title>Agendar Serviço: {{ service.name }}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- Adicionando o jQuery -->
 </head>
 <body>
     <header>
@@ -17,7 +18,7 @@
     </header>
 
     <h1>Agendar Serviço: {{ service.name }}</h1>
-    
+
     <form method="POST">
         {% csrf_token %}
 
@@ -30,6 +31,7 @@
         <!-- Listar dias disponíveis -->
         <label for="date">Data do agendamento:</label>
         <select id="date" name="date" required>
+            <option value="">Selecione uma data</option>
             {% for day in available_days %}
                 <option value="{{ day }}">{{ day }}</option>
             {% endfor %}
@@ -38,9 +40,7 @@
         <!-- Adicionar a seleção de horários disponíveis -->
         <label for="time">Horário do agendamento:</label>
         <select id="time" name="time" required>
-            {% for time in available_times %}
-                <option value="{{ time }}">{{ time }}</option>
-            {% endfor %}
+            <option value="">Por favor, selecione uma data para ver os horários disponíveis</option>
         </select><br><br>
 
         <button type="submit">Agendar</button>
@@ -49,5 +49,37 @@
     <footer>
         <p>&copy; 2024 Sistema de Agendamento</p>
     </footer>
+
+    <script>
+        $(document).ready(function() {
+            $('#date').change(function() {
+                var selectedDate = $(this).val();  // Pegar a data selecionada
+                var serviceId = {{ service.id }};  // Pegar o ID do serviço
+
+                if (selectedDate) {
+                    $.ajax({
+                        url: "{% url 'appointment_request' service.id %}",
+                        data: {
+                            'date': selectedDate
+                        },
+                        success: function(data) {
+                            var timeSelect = $('#time');
+                            timeSelect.empty();  // Limpar o select de horários
+
+                            if (data.available_times.length > 0) {
+                                // Adicionar os horários disponíveis ao select
+                                $.each(data.available_times, function(index, time) {
+                                    timeSelect.append('<option value="' + time + '">' + time + '</option>');
+                                });
+                            } else {
+                                // Mostrar mensagem caso não haja horários disponíveis
+                                timeSelect.append('<option value="">Nenhum horário disponível</option>');
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
