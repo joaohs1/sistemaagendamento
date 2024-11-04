@@ -1,0 +1,22 @@
+{% extends 'appointment_system/base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="home-content">
+    <h1 class="headline">Livre-se das dores e recupere sua qualidade de vida com a Fisioterapia Maria Regina Braga</h1>
+    <img src="{% static 'images/therapy.jpg' %}" alt="Sessão de fisioterapia" style="width: 100%; max-width: 350px; height: auto; border-radius: 8px;">
+    <p class="intro-message">
+        Nossos fisioterapeutas experientes desenvolvem planos de tratamento personalizados para cada paciente,
+        utilizando técnicas avançadas e um toque humano.
+    </p>
+    <p class="intro-message">Agende sua avaliação gratuita agora e sinta a diferença!</p>
+    <a href="{% url 'service_list' %}" class="button service-button">Ver Serviços</a>
+    <p class="benefits-title">Benefícios:</p>
+    <ul class="benefits-list">
+        <li>Alívio da dor</li>
+        <li>Recuperação de lesões</li>
+        <li>Melhora da postura</li>
+        <li>Aumento da mobilidade</li>
+    </ul>
+</main>
+{% endblock %}

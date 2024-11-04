@@ -11,8 +11,13 @@
         <li>
             <h2>{{ service.name }}</h2>
             <p>Descrição: {{ service.description }}</p>
-            <p>Preço: R$ {{ service.price }}</p>
-            <a href="{% url 'appointment_request' service.id %}">Agendar</a>  <!-- Link para agendar o serviço -->
+            <p>Preço: R$ {{ service.price }} por sessão.</p>
+            <p>Duração da sessão: {{ service.duration }} minutos.</p>
+            <a href="{% url 'appointment_request' service.id %}" 
+            style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; border-radius: 5px; transition: background-color 0.3s;">
+            Agendar
+            </a>
+
         </li>
     {% endfor %}
 </ul>

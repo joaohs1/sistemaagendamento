@@ -6,16 +6,31 @@
     <title>Agendar Serviço: {{ service.name }}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- Adicionando o jQuery -->
-</head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="{% url 'service_list' %}" class="white-link"><b>Serviços</b></a></li>
-            </ul>
-        </nav>
-    </header>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> <!-- jQuery UI CSS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> <!-- jQuery UI JS -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Fisioterapia Maria Regina Braga{% endblock %}</title>
+        
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <h1>Fisioterapia Maria Regina Braga</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'about' %}" class="white-link"><b>Home</b></a></li>
+                    <li><a href="{% url 'service_list' %}" class="white-link"><b>Serviços</b></a></li>
+                    <li><a href="{% url 'contact' %}" class="white-link"><b>Contato</b></a></li>
+                    <li><a href="{% url 'admin:index' %}" class="white-link"><b>Área do profissional</b></a></li>
+                    
+                </ul>
+            </nav>
+        </header>
 
     <h1>Agendar Serviço: {{ service.name }}</h1>
 
@@ -28,14 +43,9 @@
         <label for="email">Seu email:</label>
         <input type="email" id="email" name="email" required><br><br>
 
-        <!-- Listar dias disponíveis -->
+        <!-- Calendário para seleção de data -->
         <label for="date">Data do agendamento:</label>
-        <select id="date" name="date" required>
-            <option value="">Selecione uma data</option>
-            {% for day in available_days %}
-                <option value="{{ day }}">{{ day }}</option>
-            {% endfor %}
-        </select><br><br>
+        <input type="text" id="date" name="date" required placeholder="Escolha uma data"><br><br>
 
         <!-- Adicionar a seleção de horários disponíveis -->
         <label for="time">Horário do agendamento:</label>
@@ -43,7 +53,7 @@
             <option value="">Por favor, selecione uma data para ver os horários disponíveis</option>
         </select><br><br>
 
-        <button type="submit">Agendar</button>
+        <button type="submit" class="styled-button">Agendar</button>
     </form>
 
     <footer>
@@ -52,11 +62,16 @@
 
     <script>
         $(document).ready(function() {
-            $('#date').change(function() {
-                var selectedDate = $(this).val();  // Pegar a data selecionada
-                var serviceId = {{ service.id }};  // Pegar o ID do serviço
-
-                if (selectedDate) {
+            // Inicializar o Datepicker com idioma português
+            $('#date').datepicker({
+                dateFormat: 'yy-mm-dd',
+                beforeShowDay: function(date) {
+                    const day = $.datepicker.formatDate('yy-mm-dd', date);
+                    return [{{ available_days|safe }}.includes(day)];
+                },
+                onSelect: function(selectedDate) {
+                    var serviceId = {{ service.id }};
+    
                     $.ajax({
                         url: "{% url 'appointment_request' service.id %}",
                         data: {
@@ -64,22 +79,27 @@
                         },
                         success: function(data) {
                             var timeSelect = $('#time');
-                            timeSelect.empty();  // Limpar o select de horários
-
+                            timeSelect.empty();
+    
                             if (data.available_times.length > 0) {
-                                // Adicionar os horários disponíveis ao select
                                 $.each(data.available_times, function(index, time) {
                                     timeSelect.append('<option value="' + time + '">' + time + '</option>');
                                 });
                             } else {
-                                // Mostrar mensagem caso não haja horários disponíveis
                                 timeSelect.append('<option value="">Nenhum horário disponível</option>');
                             }
                         }
                     });
-                }
+                },
+                // Configurações de idioma para português
+                dayNames: ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"],
+                dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+                monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+                monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+                firstDay: 0 // Domingo como o primeiro dia da semana
             });
         });
     </script>
+    
 </body>
 </html>

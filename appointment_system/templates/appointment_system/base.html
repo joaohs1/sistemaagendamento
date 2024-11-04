@@ -1,26 +1,33 @@
-<!-- base -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Sistema de Agendamento{% endblock %}</title>
+    <title>{% block title %}Fisioterapia Maria Regina Braga{% endblock %}</title>
     
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <header>
+        <div class="logo">
+            <h1>Fisioterapia Maria Regina Braga</h1>
+        </div>
         <nav>
             <ul>
+                <li><a href="{% url 'about' %}" class="white-link"><b>Home</b></a></li>
                 <li><a href="{% url 'service_list' %}" class="white-link"><b>Serviços</b></a></li>
-                <!-- Exibir serviços -->
-                {% for service in services %}
-                     <!--<li><a href="{% url 'appointment_request' service.id %}">Agendar {{ service.name }}</a></li>-->
-                {% endfor %}
+                <li><a href="{% url 'contact' %}" class="white-link"><b>Contato</b></a></li>
+                <li><a href="{% url 'admin:index' %}" class="white-link"><b>Área do profissional</b></a></li>
+                
             </ul>
         </nav>
     </header>
-    {% block content %}{% endblock %}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Sistema de Agendamento. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>

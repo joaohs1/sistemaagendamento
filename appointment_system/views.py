@@ -79,3 +79,10 @@ def book_appointment(request, service_id):
     # Esta função pode ser removida se o agendamento for tratado diretamente em appointment_request
     service = get_object_or_404(Service, id=service_id)
     return render(request, 'appointment_system/book_appointment.html', {'service': service})
+
+def about(request):
+    return render(request, 'appointment_system/about.html')  
+
+def contact(request):
+    return render(request, 'appointment_system/contact.html')  
+
