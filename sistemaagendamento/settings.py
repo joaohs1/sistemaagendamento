@@ -71,18 +71,23 @@ WSGI_APPLICATION = 'sistemaagendamento.wsgi.application'
 
 import dj_database_url
 
+# Imprimir o valor da variável de ambiente DATABASE_URL
+print("DATABASE_URL:", os.getenv('DATABASE_URL'))
+
+# Ou, se quiser garantir que a variável está sendo lida diretamente
+print("DATABASE_URL using os.environ:", os.environ.get('DATABASE_URL'))
+
 # Verifica se estamos no Railway (se a variável DATABASE_URL está definida)
 if 'DATABASE_URL' in os.environ:
     DATABASES = {
         'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
     }
-else:   
-    # Configuração local (quando não estiver no Railway)
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv("DB_NAME", "agendamentos"),
-            'USER': os.getenv("DB_USER", "postgres"),
+            'NAME': os.getenv('DB_NAME', 'default_db'),
+            'USER': os.getenv('DB_USER', 'default_user'),
             'PASSWORD': os.getenv('DB_PASSWORD', 'default_password'),
             'HOST': os.getenv('DB_HOST', 'localhost'),
             'PORT': os.getenv('DB_PORT', '5432'),
