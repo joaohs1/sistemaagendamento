@@ -1,1 +1,1 @@
-web: gunicorn sistemaagendamento.wsgi --log-file -
+web: gunicorn sistemaagendamento.wsgi:application --bind 0.0.0.0:$PORT --log-file -
