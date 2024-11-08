@@ -78,12 +78,12 @@ print("DATABASE_URL:", os.getenv('DATABASE_URL'))
 print("DATABASE_URL using os.environ:", os.environ.get('DATABASE_URL'))
 
 # Verifica se estamos no Railway (se a variável DATABASE_URL está definida)
-if 'DATABASE_URL' in os.environ:
-    DATABASES = {
-        'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
-    }
-else:
-    DATABASES = {
+#if 'DATABASE_URL' in os.environ:
+ #   DATABASES = {
+  #      'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+   # }
+#else:
+DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': os.getenv('DB_NAME', 'default_db'),
