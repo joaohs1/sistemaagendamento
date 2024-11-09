@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import logging
 
 # Carregar variáveis de ambiente do arquivo .env
 load_dotenv()
@@ -71,11 +72,11 @@ WSGI_APPLICATION = 'sistemaagendamento.wsgi.application'
 
 import dj_database_url
 
-# Imprimir o valor da variável de ambiente DATABASE_URL
 print("DATABASE_URL:", os.getenv('DATABASE_URL'))
+    
+logging.basicConfig(level=logging.INFO)
+logging.info(f"DATABASE_URL: {os.getenv('DATABASE_URL')}")
 
-# Ou, se quiser garantir que a variável está sendo lida diretamente
-print("DATABASE_URL using os.environ:", os.environ.get('DATABASE_URL'))
 
 # Verifica se estamos no Railway (se a variável DATABASE_URL está definida)
 if 'DATABASE_URL' in os.environ:
