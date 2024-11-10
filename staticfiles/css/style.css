@@ -1,0 +1,124 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    background: #333;
+    color: #ffffff;
+    padding: 10px 0;
+    width: 100%;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+a {
+    color: #0044cc;
+    text-decoration: none;
+}
+
+a.white-link {
+    color: #ffffff;
+}
+
+.styled-button, .service-button, .btn-agendar, .agendar-button {
+    background-color: #2F4F4F;
+    color: #F5FFFA;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.styled-button:hover, .service-button:hover, .btn-agendar:hover, .agendar-button:hover {
+    background-color: #2F4F4F;
+}
+
+.erro-mensagem {
+    font-size: 0.9em;
+    margin-top: 5px;
+    color: #c0392b;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+    border: 1px solid #007bff;
+}
+
+footer {
+    text-align: center;
+}
+
+.main-content {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.therapy-image {
+    display: block;
+    margin: 20px auto;
+}
+
+.home-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 80vh;
+    gap: 20px;
+}
+
+.headline {
+    font-size: 2em;
+    color: #00470E;
+    margin-bottom: 15px;
+}
+
+.intro-message {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.benefits-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #00470E;
+    margin-top: 30px;
+}
+
+.benefits-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 15px 0;
+    font-size: 1.1em;
+    color: #555;
+}
+
+.benefits-list li {
+    margin: 5px 0;
+}

@@ -115,6 +115,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
+# Adicione esta linha no seu settings.py
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+
 STATICFILES_DIRS = [
     BASE_DIR / "appointment_system" / "static",  # Caminho para a pasta static dentro de appointment_system
 ]
